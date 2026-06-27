@@ -1,0 +1,221 @@
+:root {
+  --bg-main: #f5f0e8;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f9f3ea;
+  --border-card: #c7b39a;
+  --accent: #c25b2b;
+  --accent-soft: #e28b4f;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --shadow-soft: 0 2px 6px rgba(0,0,0,0.08);
+  --radius-card: 10px;
+  --radius-pill: 999px;
+  --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.app-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #d0c4b5;
+  background: linear-gradient(90deg, #f7f1e7, #f3e3cf);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.maker {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.app-main {
+  padding: 12px;
+  max-width: 960px;
+  margin: 0 auto 80px;
+}
+
+.card,
+.card-main {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.card-main {
+  border-left: 4px solid var(--accent-soft);
+}
+
+.card-group > .card {
+  margin-bottom: 10px;
+}
+
+.card-group > h2 {
+  margin: 8px 4px 8px;
+  font-size: 15px;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+h3 {
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+}
+
+.big-textarea,
+.medium-textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #cfc2b3;
+  padding: 8px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  resize: vertical;
+  background: #fffdf8;
+}
+
+.big-textarea {
+  min-height: 140px;
+}
+
+.medium-textarea {
+  min-height: 90px;
+}
+
+.big-textarea:focus,
+.medium-textarea:focus,
+.select-large:focus {
+  outline: none;
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 2px rgba(194, 91, 43, 0.15);
+}
+
+.crew-card {
+  background: var(--bg-card-alt);
+}
+
+.select-large {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #cfc2b3;
+  background: #fffdf8;
+}
+
+.card-output {
+  border-left: 4px solid var(--accent);
+}
+
+.output-box {
+  background: #1f1b16;
+  color: #f7f1e7;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 120px;
+  margin-bottom: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
+.primary-button {
+  background: var(--accent);
+  color: #fffdf8;
+}
+
+.secondary-button {
+  background: #fffdf8;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: translateY(1px);
+}
+
+/* iPhone向け余白調整 */
+@media (max-width: 600px) {
+  .app-main {
+    padding: 8px;
+  }
+  .card,
+  .card-main {
+    padding: 10px;
+  }
+  .big-textarea {
+    min-height: 120px;
+  }
+}
+
+/* トースト通知 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
