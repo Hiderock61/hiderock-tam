@@ -22,6 +22,17 @@
     <textarea id="input-material" class="big-textarea" placeholder="例）最近、仕事の後半だけ急に集中力が戻る…など"></textarea>
   </section>
 
+  <!-- 空欄OK・素材ワンパン生成パッチ -->
+  <section class="card info-card">
+    <h2>まず素材だけでOK</h2>
+    <p class="hint strong-hint">全部埋めなくてOK。まず素材だけ書いて、方法©️文を生成できます。</p>
+    <p class="hint">未完成のまま出していい。残りはAIと現実で埋める。</p>
+    <div class="draft-tools">
+      <button id="clear-draft-button" class="secondary-button clear-draft-btn" type="button">台帳を空にする</button>
+      <p class="hint draft-note">入力中の内容は、この端末のブラウザ内に自動保存されます。</p>
+    </div>
+  </section>
+
   <section class="card-group">
     <h2>基本工程カード</h2>
     <div class="card">
@@ -139,8 +150,11 @@
     <h2>コピー出力（AIに渡す文）</h2>
     <p class="hint">下記の文をAIチャットなどにそのまま貼り付けて使えます。</p>
     <pre id="output-text" class="output-box"></pre>
-    <button id="generate-button" class="primary-button">方法©️文を生成</button>
-    <button id="copy-button" class="secondary-button">AIに渡す文をコピー</button>
+    <div class="button-row">
+      <button id="generate-quick-button" class="primary-button">素材ワンパン生成</button>
+      <button id="generate-full-button" class="secondary-button">全部入り生成</button>
+      <button id="copy-button" class="secondary-button copy-button">AIに渡す文をコピー</button>
+    </div>
   </section>
 </main>
 

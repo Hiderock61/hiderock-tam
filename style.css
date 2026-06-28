@@ -219,3 +219,67 @@ h3 {
   opacity: 1;
   transform: translateX(-50%) translateY(-4px);
 }
+
+/* v0.3.2 空欄OK・素材ワンパン生成パッチ */
+.info-card {
+  background: #fff8ec;
+  border-left: 4px solid var(--accent);
+}
+
+.info-card h2 {
+  margin-bottom: 6px;
+}
+
+.strong-hint {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.button-row .primary-button,
+.button-row .secondary-button {
+  margin-right: 0;
+  min-height: 44px;
+}
+
+.copy-button {
+  flex-basis: 100%;
+}
+
+@media (min-width: 640px) {
+  .copy-button {
+    flex-basis: auto;
+  }
+}
+
+/* v0.3.3 消えない台帳パッチ */
+.draft-tools {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.clear-draft-btn {
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #fffdf8;
+  border: 1px solid #cfc2b3;
+  color: var(--text-muted);
+}
+
+.clear-draft-btn:active {
+  transform: translateY(1px);
+}
+
+.draft-note {
+  margin-top: 2px;
+  margin-bottom: 0;
+}
