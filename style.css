@@ -283,3 +283,87 @@ h3 {
   margin-top: 2px;
   margin-bottom: 0;
 }
+
+/* v0.4A 素材投入型マニュファクチュア工場©️ */
+.hidden {
+  display: none !important;
+}
+
+.factory-card {
+  border-left: 4px solid var(--accent);
+}
+
+.factory-group {
+  margin-top: 14px;
+}
+
+.factory-label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.factory-destinations,
+.factory-lines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choice-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid #d7c8b4;
+  border-radius: 12px;
+  background: #fffdf8;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.choice-pill input {
+  transform: scale(1.15);
+}
+
+.factory-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.factory-button,
+.copy-button {
+  min-height: 44px;
+}
+
+.draft-tools {
+  margin-top: 10px;
+}
+
+.clear-draft-btn {
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #fffdf8;
+  border: 1px solid #cfc2b3;
+  color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+  .factory-destinations,
+  .factory-lines,
+  .factory-actions {
+    flex-direction: column;
+  }
+
+  .choice-pill,
+  .factory-button,
+  .copy-button,
+  .clear-draft-btn {
+    width: 100%;
+  }
+}

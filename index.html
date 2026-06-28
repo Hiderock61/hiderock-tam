@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ヒデロックテンプレ法©️ - ジャンル横断型 方法©️生成装置</title>
+  <title>ヒデロックテンプレ法©️ - 素材投入型マニュファクチュア工場©️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,150 +10,136 @@
 <header class="app-header">
   <div class="brand">
     <span class="app-title">ヒデロックテンプレ法©️</span>
-    <span class="app-subtitle">ジャンル横断型 方法©️生成装置</span>
+    <span class="app-subtitle">素材投入型マニュファクチュア工場©️</span>
   </div>
-  <div class="maker">制作：オノノケホールディングス©️</div>
+  <div class="maker">制作：オノノケホールディングス😲©️</div>
 </header>
 
 <main class="app-main">
-  <section class="card card-main">
-    <h2>素材入力台帳</h2>
-    <p class="hint">変な言葉・違和感・体感・出来事など、素材をそのまま書いてください。</p>
-    <textarea id="input-material" class="big-textarea" placeholder="例）最近、仕事の後半だけ急に集中力が戻る…など"></textarea>
+  <section id="factory-section" class="card card-main factory-card">
+    <h2>素材投入型マニュファクチュア工場©️</h2>
+    <p class="hint strong-hint">素材を投入口に入れて、加工先と工場ラインを選びます。</p>
+    <p class="hint">工程はあなたが全部埋めるのではなく、AIへの発注文に組み込まれます。</p>
+
+    <label for="input-material" class="factory-label">1. 素材投入口</label>
+    <p class="hint">変な言葉・違和感・体感・出来事など、素材をそのまま入れてください。</p>
+    <textarea id="input-material" class="big-textarea" placeholder="例）アプリを作ったけど、入力欄を埋めるのが難しくて固まった"></textarea>
+
+    <div class="factory-group">
+      <div class="factory-label">2. 加工先を選ぶ</div>
+      <div class="factory-destinations" role="radiogroup" aria-label="加工先">
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="method" checked> 方法©️化</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="note"> note記事化</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="ai_request"> AI依頼文化</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="spec"> アプリ仕様化</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="rodo"> ロードー判断</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="hospital"> 病院説明</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="creative"> 創作ネタ化</label>
+      </div>
+    </div>
+
+    <div class="factory-group">
+      <div class="factory-label">3. 使用する工場ライン</div>
+      <p class="hint">複数選択できます。最初は全部ONでOK。</p>
+      <div class="factory-lines">
+        <label class="choice-pill"><input type="checkbox" id="line-basic5" checked> 基本5工程</label>
+        <label class="choice-pill"><input type="checkbox" id="line-theater" checked> 劇団員チェック</label>
+        <label class="choice-pill"><input type="checkbox" id="line-translate" checked> 地上語翻訳</label>
+        <label class="choice-pill"><input type="checkbox" id="line-next" checked> 次の一手</label>
+        <label class="choice-pill"><input type="checkbox" id="line-notdo" checked> やらないこと</label>
+      </div>
+    </div>
+
+    <div class="factory-actions">
+      <button id="flow-to-factory-button" class="primary-button factory-button" type="button">劇団工場に流す</button>
+      <button id="copy-button" class="secondary-button copy-button" type="button">AIに渡す文をコピー</button>
+    </div>
   </section>
 
-  <!-- 空欄OK・素材ワンパン生成パッチ -->
   <section class="card info-card">
-    <h2>まず素材だけでOK</h2>
-    <p class="hint strong-hint">全部埋めなくてOK。まず素材だけ書いて、方法©️文を生成できます。</p>
-    <p class="hint">未完成のまま出していい。残りはAIと現実で埋める。</p>
+    <h2>消えない台帳</h2>
+    <p class="hint strong-hint">入力中の内容は、この端末のブラウザ内に自動保存されます。</p>
+    <p class="hint">これは本格的な方法©️棚ではなく、作業中の紙が風で飛ばないための文鎮です。</p>
     <div class="draft-tools">
       <button id="clear-draft-button" class="secondary-button clear-draft-btn" type="button">台帳を空にする</button>
-      <p class="hint draft-note">入力中の内容は、この端末のブラウザ内に自動保存されます。</p>
-    </div>
-  </section>
-
-  <section class="card-group">
-    <h2>基本工程カード</h2>
-    <div class="card">
-      <h3>1. 拾う</h3>
-      <p class="hint">素材のどこが「変」か、どこを拾いたいか。</p>
-      <textarea id="step-pick" class="big-textarea"></textarea>
-    </div>
-    <div class="card">
-      <h3>2. 名前をつける</h3>
-      <p class="hint">呼べるあだ名・ラベル・技名など。</p>
-      <textarea id="step-name" class="big-textarea"></textarea>
-    </div>
-    <div class="card">
-      <h3>3. レイヤー分解</h3>
-      <p class="hint">身体 / 現実 / 創作 / 仕事 / AI / 社会語 に分けてみる。</p>
-      <textarea id="step-layer" class="big-textarea"></textarea>
-    </div>
-    <div class="card">
-      <h3>4. 地上語へ翻訳</h3>
-      <p class="hint">他人やAIに渡せる説明文にする。</p>
-      <textarea id="step-translate" class="big-textarea"></textarea>
-    </div>
-    <div class="card">
-      <h3>5. 方法©️化</h3>
-      <p class="hint">次回も使える「工程」として書き出す。</p>
-      <textarea id="step-method" class="big-textarea"></textarea>
-    </div>
-  </section>
-
-  <section class="card-group">
-    <h2>劇団員検査レイヤー</h2>
-
-    <div class="card crew-card">
-      <h3>✍️ 文脈翻訳者</h3>
-      <p class="hint">これは別の入口で何に変換できる？</p>
-      <textarea id="crew-context" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>👨🏻‍🔧 工夫さん</h3>
-      <p class="hint">毎回やらなくていい工程はどこ？</p>
-      <textarea id="crew-kufu" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>⚖️ マルクスAI</h3>
-      <p class="hint">労働量は重すぎない？</p>
-      <textarea id="crew-marx" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>💰 商人AI</h3>
-      <p class="hint">誰が何にお金・時間・注意を払う？</p>
-      <textarea id="crew-merchant" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>🚧 現実君</h3>
-      <p class="hint">今日、小さく動かせる？</p>
-      <textarea id="crew-reality" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>🐰 ねむうさ品質管理課</h3>
-      <p class="hint">眠い日・低出力日でも壊れない？</p>
-      <textarea id="crew-sleepy" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>👵🏻🔍 詐欺見抜き婆さん</h3>
-      <p class="hint">怪しい条件はない？</p>
-      <textarea id="crew-fraud" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>🦅 競争手を見る鷹</h3>
-      <p class="hint">人が多すぎる場所に突っ込んでない？</p>
-      <textarea id="crew-competition" class="medium-textarea"></textarea>
-    </div>
-
-    <div class="card crew-card">
-      <h3>🎩 Hiderock Japan</h3>
-      <p class="hint">出荷 / 保留 / 棚戻し / 今はやらない などの全体判断。</p>
-      <textarea id="crew-hiderock" class="medium-textarea"></textarea>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>最終判定</h2>
-    <p class="hint">今の自分と現場での扱いを選んでください。</p>
-    <select id="final-decision" class="select-large">
-      <option value="">選択してください</option>
-      <option value="出荷">出荷</option>
-      <option value="小さく試す">小さく試す</option>
-      <option value="保留">保留</option>
-      <option value="棚戻し">棚戻し</option>
-      <option value="今はやらない">今はやらない</option>
-    </select>
-  </section>
-
-  <section class="card-group">
-    <div class="card">
-      <h2>次の一手</h2>
-      <p class="hint">具体的に何をどう動かすか。</p>
-      <textarea id="next-action" class="medium-textarea"></textarea>
-    </div>
-    <div class="card">
-      <h2>やらないこと</h2>
-      <p class="hint">今回は意識的に「やらない」と決めること。</p>
-      <textarea id="not-do" class="medium-textarea"></textarea>
     </div>
   </section>
 
   <section class="card card-output">
-    <h2>コピー出力（AIに渡す文）</h2>
+    <h2>出荷口（AIに渡す発注文）</h2>
     <p class="hint">下記の文をAIチャットなどにそのまま貼り付けて使えます。</p>
     <pre id="output-text" class="output-box"></pre>
-    <div class="button-row">
-      <button id="generate-quick-button" class="primary-button">素材ワンパン生成</button>
-      <button id="generate-full-button" class="secondary-button">全部入り生成</button>
-      <button id="copy-button" class="secondary-button copy-button">AIに渡す文をコピー</button>
+  </section>
+
+  <section class="legacy-manual-section hidden" aria-hidden="true">
+    <section class="card-group">
+      <h2>旧・基本工程カード</h2>
+      <div class="card">
+        <h3>1. 拾う</h3>
+        <p class="hint">素材のどこが「変」か、どこを拾いたいか。</p>
+        <textarea id="step-pick" class="big-textarea"></textarea>
+      </div>
+      <div class="card">
+        <h3>2. 名前をつける</h3>
+        <p class="hint">呼べるあだ名・ラベル・技名など。</p>
+        <textarea id="step-name" class="big-textarea"></textarea>
+      </div>
+      <div class="card">
+        <h3>3. レイヤー分解</h3>
+        <p class="hint">身体 / 現実 / 創作 / 仕事 / AI / 社会語 に分けてみる。</p>
+        <textarea id="step-layer" class="big-textarea"></textarea>
+      </div>
+      <div class="card">
+        <h3>4. 地上語へ翻訳</h3>
+        <p class="hint">他人やAIに渡せる説明文にする。</p>
+        <textarea id="step-translate" class="big-textarea"></textarea>
+      </div>
+      <div class="card">
+        <h3>5. 方法©️化</h3>
+        <p class="hint">次回も使える「工程」として書き出す。</p>
+        <textarea id="step-method" class="big-textarea"></textarea>
+      </div>
+    </section>
+
+    <section class="card-group">
+      <h2>旧・劇団員検査レイヤー</h2>
+      <div class="card crew-card"><h3>✍️ 文脈翻訳者</h3><textarea id="crew-context" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>👨🏻‍🔧 工夫さん</h3><textarea id="crew-kufu" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>⚖️ マルクスAI</h3><textarea id="crew-marx" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>💰 商人AI</h3><textarea id="crew-merchant" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>🚧 現実君</h3><textarea id="crew-reality" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>🐰 ねむうさ品質管理課</h3><textarea id="crew-sleepy" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>👵🏻🔍 詐欺見抜き婆さん</h3><textarea id="crew-fraud" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>🦅 競争手を見る鷹</h3><textarea id="crew-competition" class="medium-textarea"></textarea></div>
+      <div class="card crew-card"><h3>🎩 Hiderock Japan</h3><textarea id="crew-hiderock" class="medium-textarea"></textarea></div>
+    </section>
+
+    <section class="card">
+      <h2>旧・最終判定</h2>
+      <select id="final-decision" class="select-large">
+        <option value="">選択してください</option>
+        <option value="出荷">出荷</option>
+        <option value="小さく試す">小さく試す</option>
+        <option value="保留">保留</option>
+        <option value="棚戻し">棚戻し</option>
+        <option value="今はやらない">今はやらない</option>
+      </select>
+    </section>
+
+    <section class="card-group">
+      <div class="card">
+        <h2>旧・次の一手</h2>
+        <textarea id="next-action" class="medium-textarea"></textarea>
+      </div>
+      <div class="card">
+        <h2>旧・やらないこと</h2>
+        <textarea id="not-do" class="medium-textarea"></textarea>
+      </div>
+    </section>
+
+    <div class="hidden" aria-hidden="true">
+      <button id="generate-quick-button" type="button">素材ワンパン生成</button>
+      <button id="generate-full-button" type="button">全部入り生成</button>
     </div>
   </section>
 </main>
