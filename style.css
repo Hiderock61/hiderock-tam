@@ -447,3 +447,63 @@ h3 {
     padding: 8px 10px;
   }
 }
+
+/* v0.4B 呼び水サンプル棚パッチ：押せるサンプル棚 */
+.v04b-sample-block {
+  margin: 10px 0 12px;
+  padding: 10px;
+  border: 1px solid rgba(120, 100, 70, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 252, 244, 0.78);
+}
+
+.v04b-section-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.v04b-help-text {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.v04b-sample-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.v04b-sample-btn {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(194, 91, 43, 0.22);
+  background: #fffdf8;
+  color: var(--text-main);
+  font-size: 0.86rem;
+  line-height: 1.2;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.v04b-sample-btn:active {
+  transform: translateY(1px);
+  background: #f7ead8;
+}
+
+@media (max-width: 600px) {
+  .v04b-sample-shelf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .v04b-sample-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+

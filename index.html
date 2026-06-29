@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ヒデロックテンプレ法©️ - 素材投入型マニュファクチュア工場©️</title>
+  <title>ヒデロックテンプレ法©️ v0.4B - 呼び水サンプル棚パッチ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,7 +10,7 @@
 <header class="app-header">
   <div class="brand">
     <span class="app-title">ヒデロックテンプレ法©️</span>
-    <span class="app-subtitle">素材投入型マニュファクチュア工場©️</span>
+    <span class="app-subtitle">素材投入型マニュファクチュア工場©️ v0.4B / 呼び水サンプル棚パッチ</span>
   </div>
   <div class="maker">制作：オノノケホールディングス😲©️</div>
 </header>
@@ -19,6 +19,7 @@
   <section id="factory-section" class="card card-main factory-card">
     <h2>素材投入型マニュファクチュア工場©️</h2>
     <p class="hint strong-hint">素材を投入口に入れて、加工先と工場ラインを選びます。</p>
+    <p class="hint">v0.4Bでは、迷ったらサンプル棚を押すだけで素材が入ります。</p>
     <p class="hint">工程はあなたが全部埋めるのではなく、AIへの発注文に組み込まれます。</p>
 
     <label for="input-material" class="factory-label">1. 素材投入口</label>
@@ -31,18 +32,18 @@
     </div>
     <textarea id="input-material" class="big-textarea" placeholder="例）ロードー行くか迷う／かたまり／病院で説明できない／この会話をnoteにしたい／アプリの入力欄が難しい"></textarea>
 
-    <div class="material-examples" aria-label="素材の例">
-      <div class="examples-title">素材の例（気軽に書いてOK）</div>
-      <ul class="examples-list">
-        <li>かたまり</li>
-        <li>ロードー行くか迷う</li>
-        <li>病院で説明できない</li>
-        <li>この会話をnoteにしたい</li>
-        <li>アプリの入力欄が難しい</li>
-        <li>GeminiとCopilotの返事を整理したい</li>
-        <li>変な言葉だけ拾った</li>
-      </ul>
-    </div>
+    <section class="v04b-sample-block" aria-label="呼び水サンプル棚">
+      <div class="v04b-section-title">🍵 呼び水サンプル棚</div>
+      <p class="v04b-help-text">迷ったら、まず1つ押してください。入力欄に素材の例が入ります。</p>
+      <div class="v04b-sample-shelf">
+        <button type="button" class="v04b-sample-btn" data-sample="living">🧾 生活トラブル</button>
+        <button type="button" class="v04b-sample-btn" data-sample="iwakan">😲 違和感</button>
+        <button type="button" class="v04b-sample-btn" data-sample="jutai">🧠 思考渋滞</button>
+        <button type="button" class="v04b-sample-btn" data-sample="app">📱 アプリ案</button>
+        <button type="button" class="v04b-sample-btn" data-sample="skit">🎭 寸劇素材</button>
+        <button type="button" class="v04b-sample-btn" data-sample="method">🛠️ 方法©️化</button>
+      </div>
+    </section>
 
     <div class="factory-group">
       <div class="factory-label">2. 加工先を選ぶ</div>
@@ -52,6 +53,7 @@
         <label class="choice-pill"><input type="radio" name="factory-destination" value="ai_request"> AI依頼文化</label>
         <label class="choice-pill"><input type="radio" name="factory-destination" value="spec"> アプリ仕様化</label>
         <label class="choice-pill"><input type="radio" name="factory-destination" value="rodo"> ロードー判断</label>
+        <label class="choice-pill"><input type="radio" name="factory-destination" value="defense"> 生活防衛</label>
         <label class="choice-pill"><input type="radio" name="factory-destination" value="hospital"> 病院説明</label>
         <label class="choice-pill"><input type="radio" name="factory-destination" value="creative"> 創作ネタ化</label>
       </div>
@@ -65,6 +67,7 @@
         <label class="choice-pill"><input type="checkbox" id="line-theater" checked> 劇団員チェック</label>
         <label class="choice-pill"><input type="checkbox" id="line-translate" checked> 地上語翻訳</label>
         <label class="choice-pill"><input type="checkbox" id="line-next" checked> 次の一手</label>
+        <label class="choice-pill"><input type="checkbox" id="line-defense" checked> 生活防衛</label>
         <label class="choice-pill"><input type="checkbox" id="line-notdo" checked> やらないこと</label>
       </div>
     </div>

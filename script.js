@@ -28,6 +28,7 @@ const LINE_IDS = [
   "line-theater",
   "line-translate",
   "line-next",
+  "line-defense",
   "line-notdo"
 ];
 
@@ -61,7 +62,7 @@ function getSelectedLines() {
 }
 
 function setSelectedLines(lines) {
-  const selected = Array.isArray(lines) ? lines : ["line-basic5", "line-theater", "line-translate", "line-next", "line-notdo"];
+  const selected = Array.isArray(lines) ? lines : ["line-basic5", "line-theater", "line-translate", "line-next", "line-defense", "line-notdo"];
   LINE_IDS.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.checked = selected.includes(id);
@@ -83,7 +84,7 @@ function collectDraft() {
   const outputBox = document.getElementById("output-text");
   const draft = {
     version: "v1",
-    appVersion: "v0.4A",
+    appVersion: "v0.4B",
     updatedAt: new Date().toISOString(),
     fields: {},
     destination: getDestinationValue(),
@@ -151,7 +152,7 @@ function clearDraft() {
 
   FIELD_IDS.forEach(id => setValue(id, ""));
   setDestinationValue("method");
-  setSelectedLines(["line-basic5", "line-theater", "line-translate", "line-next", "line-notdo"]);
+  setSelectedLines(["line-basic5", "line-theater", "line-translate", "line-next", "line-defense", "line-notdo"]);
 
   const outputBox = document.getElementById("output-text");
   if (outputBox) outputBox.textContent = "";
@@ -197,6 +198,7 @@ function destinationText(value) {
     ai_request: "AI依頼文化：別のAIに渡せる依頼文として整理する。",
     spec: "アプリ仕様化：GitHub Pages向けの画面・機能・実装順に整理する。",
     rodo: "ロードー判断：今日動かすか、保留するか、条件を分けて判断する。",
+    defense: "生活防衛：生活維持を最優先に、今やること / 今やらないこと / 保存だけすることに分ける。",
     hospital: "病院説明：医師や支援者に伝わる地上語として整理する。",
     creative: "創作ネタ化：キャラ・寸劇・記事・アプリ案に展開できる素材として整理する。"
   };
@@ -209,10 +211,32 @@ function selectedLineLabels() {
     "line-theater": "劇団員チェック",
     "line-translate": "地上語翻訳",
     "line-next": "次の一手",
+    "line-defense": "生活防衛",
     "line-notdo": "やらないこと"
   };
 
   return getSelectedLines().map(id => map[id]).filter(Boolean);
+}
+
+
+const SAMPLE_TEXTS_V04B = {
+  living: "督促状が来た。現在は生活保護とUber収入で生活していて、月末には食費やネット代も厳しい。この状態で企業債務を払う現実性は低い。これは道徳問題ではなく、生活防衛の優先順位としてどう扱うべきか整理したい。",
+  iwakan: "大企業や制度の文面が、現実の生活状況を見ないまま『払ってください』『対応してください』だけで来る。このスケール差がバグって見えて、怒りというより笑ってしまう。",
+  jutai: "アプリ開発を進めたいけど、成功確率、生活費、Uber、AIツール代、借金、将来の海外生活が同時に頭に鳴っていて、どこから手をつければいいかわからない。",
+  app: "素材を入れると、AIへの発注文に変換してくれるアプリを作りたい。ユーザーがゼロから書かなくても、サンプル棚から選んで加工ラインに流せるようにしたい。",
+  skit: "😲 ヒデロック『素材って何を入れればいいんだよう』\n🤖 明智『まだ方法©️になる前のかたまりです』\n👵🏻 おばちゃん『ほな棚に並べといたらええやないの』",
+  method: "散らかった会話、違和感、生活トラブル、アプリ案を、素材として受け取り、構造整理・AI依頼文・note記事・アプリ仕様・生活防衛のどれかに加工する手順を方法©️として固定したい。"
+};
+
+function applySampleV04B(sampleKey) {
+  const sample = SAMPLE_TEXTS_V04B[sampleKey];
+  const input = document.getElementById("input-material");
+  if (!sample || !input) return;
+
+  input.value = sample;
+  input.focus();
+  scheduleSaveDraft();
+  showToast("呼び水サンプルを入れました。🍵");
 }
 
 function buildFactoryPrompt() {
@@ -238,6 +262,13 @@ function buildFactoryPrompt() {
   parts.push("【使用する工場ライン】");
   parts.push(selectedLabels.length ? selectedLabels.map(label => `- ${label}`).join("\n") : "（未選択：必要に応じて最小工程で処理してください）");
   parts.push("");
+
+  if (destination === "defense") {
+    parts.push("【生活防衛として見る目的】");
+    parts.push("この素材を、正しさの説教ではなく、生活維持の優先順位として整理してください。");
+    parts.push("食事 / 通信 / 電気 / 衛生 / 収入導線 / 紙の期限 / 今は払わないものを分けてください。");
+    parts.push("");
+  }
 
   if (selected.includes("line-basic5")) {
     parts.push("【基本5工程】");
@@ -272,6 +303,13 @@ function buildFactoryPrompt() {
   if (selected.includes("line-next")) {
     parts.push("【次の一手】");
     parts.push("今すぐ動かせる小さい一手を1〜3個に絞ってください。大きなロードマップにしすぎないでください。");
+    parts.push("");
+  }
+
+  if (selected.includes("line-defense")) {
+    parts.push("【生活防衛】");
+    parts.push("今やること / 今やらないこと / 保存だけすること / 紙や期限だけ確認することに分けてください。");
+    parts.push("電話や交渉を前提にせず、生活維持を最優先で整理してください。");
     parts.push("");
   }
 
@@ -389,6 +427,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const restored = loadDraft();
   attachDraftListeners();
+
+  document.querySelectorAll(".v04b-sample-btn").forEach(button => {
+    button.addEventListener("click", () => applySampleV04B(button.dataset.sample));
+  });
 
   if (restored) {
     showToast("前回の台帳を復元しました。");
