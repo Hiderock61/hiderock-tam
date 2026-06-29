@@ -84,7 +84,7 @@ function collectDraft() {
   const outputBox = document.getElementById("output-text");
   const draft = {
     version: "v1",
-    appVersion: "v0.4B",
+    appVersion: "v0.4B.1",
     updatedAt: new Date().toISOString(),
     fields: {},
     destination: getDestinationValue(),
@@ -234,13 +234,37 @@ function applySampleV04B(sampleKey) {
   if (!sample || !input) return;
 
   input.value = sample;
-  input.focus();
+
+  document.querySelectorAll(".v04b-sample-btn").forEach(button => {
+    button.classList.toggle("is-picked", button.dataset.sample === sampleKey);
+  });
+
   scheduleSaveDraft();
-  showToast("呼び水サンプルを入れました。🍵");
+  showToast("素材を投入口に入れました。次は加工先を選んで劇団工場へ。🍵");
+
+  try {
+    input.scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch (e) {
+    input.scrollIntoView();
+  }
 }
 
 function buildFactoryPrompt() {
   const material = getValue("input-material");
+
+  if (!material) {
+    showToast("素材が空です。上の呼び水サンプル棚を1つ押してください。🍵");
+    const sampleBlock = document.querySelector(".v04b-sample-block") || document.getElementById("input-material");
+    if (sampleBlock) {
+      try {
+        sampleBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (e) {
+        sampleBlock.scrollIntoView();
+      }
+    }
+    return "";
+  }
+
   const destination = getDestinationValue();
   const selected = getSelectedLines();
   const selectedLabels = selectedLineLabels();
@@ -252,7 +276,7 @@ function buildFactoryPrompt() {
   parts.push("");
 
   parts.push("【素材】");
-  parts.push(material || "（素材未入力：まず一行だけ置いてください）");
+  parts.push(material);
   parts.push("");
 
   parts.push("【加工先】");
@@ -438,14 +462,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (flowButton) {
     flowButton.addEventListener("click", () => {
-      buildFactoryPrompt();
-      showToast("劇団工場に流しました。");
+      const prompt = buildFactoryPrompt();
+      if (prompt) showToast("劇団工場に流しました。");
     });
   }
 
   if (copyButton) {
     copyButton.addEventListener("click", async () => {
       const text = lastGeneratedOutput || (outputBox && outputBox.textContent.trim()) || buildFactoryPrompt();
+      if (!text) return;
       try {
         await navigator.clipboard.writeText(text);
         if (outputBox) outputBox.textContent = text;

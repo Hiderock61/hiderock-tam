@@ -507,3 +507,11 @@ h3 {
   }
 }
 
+
+
+/* v0.4B.1 空素材ガード・選択サンプル表示 */
+.v04b-sample-btn.is-picked {
+  background: rgba(194, 91, 43, 0.12);
+  border-color: var(--accent);
+  font-weight: 700;
+}
