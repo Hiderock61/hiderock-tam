@@ -367,3 +367,83 @@ h3 {
     width: 100%;
   }
 }
+
+/* v0.4B 呼び水サンプル棚パッチ */
+.material-help {
+  background: linear-gradient(180deg, #fffefc, #fcfbf9);
+  border: 1px solid #e7e2d6;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.material-help strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.material-help-body {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.material-examples {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.examples-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+.examples-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 6px;
+}
+
+.examples-list li {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+  .material-help {
+    padding: 8px;
+  }
+
+  .material-help-body {
+    font-size: 13px;
+  }
+
+  .examples-list {
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  }
+
+  .examples-list li {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}

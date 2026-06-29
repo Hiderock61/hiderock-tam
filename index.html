@@ -22,8 +22,27 @@
     <p class="hint">工程はあなたが全部埋めるのではなく、AIへの発注文に組み込まれます。</p>
 
     <label for="input-material" class="factory-label">1. 素材投入口</label>
-    <p class="hint">変な言葉・違和感・体感・出来事など、素材をそのまま入れてください。</p>
-    <textarea id="input-material" class="big-textarea" placeholder="例）アプリを作ったけど、入力欄を埋めるのが難しくて固まった"></textarea>
+    <div class="material-help">
+      <strong>完成文じゃなくてOK。</strong>
+      <div class="material-help-body">
+        今ひっかかった一行、変な言葉、体感、出来事、会話ログをそのまま入れてください。<br>
+        素材は、まだ方法©️になる前のかたまりです。
+      </div>
+    </div>
+    <textarea id="input-material" class="big-textarea" placeholder="例）ロードー行くか迷う／かたまり／病院で説明できない／この会話をnoteにしたい／アプリの入力欄が難しい"></textarea>
+
+    <div class="material-examples" aria-label="素材の例">
+      <div class="examples-title">素材の例（気軽に書いてOK）</div>
+      <ul class="examples-list">
+        <li>かたまり</li>
+        <li>ロードー行くか迷う</li>
+        <li>病院で説明できない</li>
+        <li>この会話をnoteにしたい</li>
+        <li>アプリの入力欄が難しい</li>
+        <li>GeminiとCopilotの返事を整理したい</li>
+        <li>変な言葉だけ拾った</li>
+      </ul>
+    </div>
 
     <div class="factory-group">
       <div class="factory-label">2. 加工先を選ぶ</div>
