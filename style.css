@@ -306,6 +306,7 @@ h3 {
 }
 
 .factory-destinations,
+.factory-shipping-targets,
 .factory-lines {
   display: flex;
   flex-wrap: wrap;
@@ -355,6 +356,7 @@ h3 {
 
 @media (max-width: 600px) {
   .factory-destinations,
+  .factory-shipping-targets,
   .factory-lines,
   .factory-actions {
     flex-direction: column;
@@ -446,4 +448,47 @@ h3 {
     font-size: 13px;
     padding: 8px 10px;
   }
+}
+
+/* v0.4C 出荷先指定パッチ */
+.shipping-section {
+  margin-top: 14px;
+}
+
+.factory-shipping-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .factory-shipping-targets {
+    flex-direction: column;
+  }
+}
+
+/* v0.4D 出荷先プリセットパッチ */
+.line-recommendation {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px dashed #d7c8b4;
+  border-radius: 12px;
+  background: #fffaf2;
+}
+
+.recommend-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+#line-recommendation-text {
+  margin-bottom: 8px;
+}
+
+.mini-button {
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 13px;
 }

@@ -57,8 +57,29 @@
       </div>
     </div>
 
+    <div class="factory-group shipping-section">
+      <div class="factory-label">3. 出荷先を選ぶ</div>
+      <p class="hint">この素材を、どこで使うか決めます。</p>
+      <div class="factory-shipping-targets" role="radiogroup" aria-label="出荷先">
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="advice" checked> 具体アドバイス</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="method_name"> 方法©️名だけ</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="app_improve"> アプリ改善</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="note_seed"> noteの種</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="copilot_spec"> コパ君への仕様</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="gemini_brief"> Geminiへの説明</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="hold_judge"> 保留判断</label>
+        <label class="choice-pill"><input type="radio" name="shipping-target" value="moyamoya_check"> モヤモヤ検品</label>
+      </div>
+    </div>
+
+    <div class="line-recommendation" id="line-recommendation">
+      <div class="recommend-title">おすすめ工場ライン</div>
+      <p id="line-recommendation-text" class="hint">出荷先を選ぶと、おすすめラインがここに出ます。</p>
+      <button id="apply-recommended-lines-button" class="secondary-button mini-button" type="button">おすすめラインにする</button>
+    </div>
+
     <div class="factory-group">
-      <div class="factory-label">3. 使用する工場ライン</div>
+      <div class="factory-label">4. 使用する工場ライン</div>
       <p class="hint">複数選択できます。最初は全部ONでOK。</p>
       <div class="factory-lines">
         <label class="choice-pill"><input type="checkbox" id="line-basic5" checked> 基本5工程</label>

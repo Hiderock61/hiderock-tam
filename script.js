@@ -53,6 +53,16 @@ function setDestinationValue(value) {
   if (target) target.checked = true;
 }
 
+function getShippingTargetValue() {
+  const checked = document.querySelector('input[name="shipping-target"]:checked');
+  return checked ? checked.value : "advice";
+}
+
+function setShippingTargetValue(value) {
+  const target = document.querySelector(`input[name="shipping-target"][value="${value || "advice"}"]`);
+  if (target) target.checked = true;
+}
+
 function getSelectedLines() {
   return LINE_IDS.filter(id => {
     const el = document.getElementById(id);
@@ -87,6 +97,7 @@ function collectDraft() {
     updatedAt: new Date().toISOString(),
     fields: {},
     destination: getDestinationValue(),
+    shippingTarget: getShippingTargetValue(),
     selectedLines: getSelectedLines(),
     outputText: outputBox ? outputBox.textContent || "" : "",
     lastGeneratedOutput: lastGeneratedOutput || ""
@@ -132,6 +143,7 @@ function loadDraft() {
     }
 
     if (draft.destination) setDestinationValue(draft.destination);
+    if (draft.shippingTarget) setShippingTargetValue(draft.shippingTarget);
     if (draft.selectedLines) setSelectedLines(draft.selectedLines);
 
     const outputBox = document.getElementById("output-text");
@@ -151,7 +163,9 @@ function clearDraft() {
 
   FIELD_IDS.forEach(id => setValue(id, ""));
   setDestinationValue("method");
-  setSelectedLines(["line-basic5", "line-theater", "line-translate", "line-next", "line-notdo"]);
+  setShippingTargetValue("advice");
+  setSelectedLines(recommendedLinesForShippingTarget("advice"));
+  updateLineRecommendation();
 
   const outputBox = document.getElementById("output-text");
   if (outputBox) outputBox.textContent = "";
@@ -176,6 +190,13 @@ function attachDraftListeners() {
 
   document.querySelectorAll('input[name="factory-destination"]').forEach(el => {
     el.addEventListener("change", scheduleSaveDraft);
+  });
+
+  document.querySelectorAll('input[name="shipping-target"]').forEach(el => {
+    el.addEventListener("change", () => {
+      updateLineRecommendation();
+      scheduleSaveDraft();
+    });
   });
 
   LINE_IDS.forEach(id => {
@@ -203,6 +224,91 @@ function destinationText(value) {
   return map[value] || map.method;
 }
 
+function shippingTargetText(value) {
+  const map = {
+    advice: "具体アドバイス：今日やること、次の一手、やらないことに使う。",
+    method_name: "方法©️名だけ：方法©️名候補、一行定義、採用/保留/棚戻し判定に使う。",
+    app_improve: "アプリ改善：UI改善点、次バージョン候補、画面文言に使う。",
+    note_seed: "noteの種：記事タイトル、導入、見出し案に使う。",
+    copilot_spec: "コパ君への仕様：実装仕様、差分方針、注意点に使う。",
+    gemini_brief: "Geminiへの説明：UXレビュー用の説明、画面コピー、情報設計に使う。",
+    hold_judge: "保留判断：出荷 / 保留 / 棚戻し / 今はやらない の判断に使う。",
+    moyamoya_check: "モヤモヤ検品：何が引っかかっているのか、どのレイヤーの違和感かを見る。"
+  };
+  return map[value] || map.advice;
+}
+
+function shippingInstruction(value) {
+  const map = {
+    advice: "今日やること、次の一手、やらないことを優先してください。説明よりも、今すぐ使える具体アドバイスを出してください。",
+    method_name: "方法©️名候補、一行定義、採用/保留/棚戻し判定を優先してください。長い理論展開は不要です。",
+    app_improve: "UI改善点、次バージョン候補、画面文言を優先してください。アプリ開発の現場で使える形にしてください。",
+    note_seed: "記事タイトル、導入文、見出し案を優先してください。まだ完成記事にしすぎず、種として扱ってください。",
+    copilot_spec: "実装仕様、差分方針、壊れやすいポイント、テスト項目を優先してください。コードを書く前の発注書として使える形にしてください。",
+    gemini_brief: "UXレビュー用の説明、画面コピー、情報設計の相談文として使える形を優先してください。",
+    hold_judge: "出荷 / 保留 / 棚戻し / 今はやらない の判断を優先してください。広げるより、今扱うかどうかを分けてください。",
+    moyamoya_check: "何が引っかかっているのか、身体 / 現実 / 創作 / 仕事 / AI / 社会語などのどのレイヤーの違和感かを優先してください。"
+  };
+  return map[value] || map.advice;
+}
+
+function recommendedLinesForShippingTarget(value) {
+  const map = {
+    advice: ["line-translate", "line-next", "line-notdo"],
+    method_name: ["line-basic5", "line-translate"],
+    app_improve: ["line-translate", "line-next", "line-notdo"],
+    note_seed: ["line-basic5", "line-translate"],
+    copilot_spec: ["line-basic5", "line-translate", "line-next"],
+    gemini_brief: ["line-basic5", "line-translate", "line-next"],
+    hold_judge: ["line-next", "line-notdo"],
+    moyamoya_check: ["line-basic5", "line-theater", "line-translate"]
+  };
+  return map[value] || map.advice;
+}
+
+function lineLabelFromId(id) {
+  const map = {
+    "line-basic5": "基本5工程",
+    "line-theater": "劇団員チェック",
+    "line-translate": "地上語翻訳",
+    "line-next": "次の一手",
+    "line-notdo": "やらないこと"
+  };
+  return map[id] || id;
+}
+
+function recommendationReason(value) {
+  const map = {
+    advice: "具体アドバイスは、説明よりも今日動ける形を優先します。",
+    method_name: "方法©️名だけは、名前・一行定義・採用判定に絞ります。",
+    app_improve: "アプリ改善は、画面文言・次バージョン候補・やらないことを優先します。",
+    note_seed: "noteの種は、素材の芯を拾って地上語へ直すのが先です。",
+    copilot_spec: "コパ君への仕様は、工程・注意点・次の作業に絞ります。",
+    gemini_brief: "Geminiへの説明は、UXレビュー用に構造と文言を整理します。",
+    hold_judge: "保留判断は、広げずに出荷/保留/棚戻しを決めます。",
+    moyamoya_check: "モヤモヤ検品は、引っかかりの正体とレイヤーを見るのが先です。"
+  };
+  return map[value] || map.advice;
+}
+
+function updateLineRecommendation() {
+  const target = getShippingTargetValue();
+  const lines = recommendedLinesForShippingTarget(target);
+  const textEl = document.getElementById("line-recommendation-text");
+  if (!textEl) return;
+
+  const labels = lines.map(lineLabelFromId).join(" / ");
+  textEl.textContent = `${shippingTargetText(target)} おすすめ：${labels}。${recommendationReason(target)}`;
+}
+
+function applyRecommendedLines() {
+  const target = getShippingTargetValue();
+  setSelectedLines(recommendedLinesForShippingTarget(target));
+  updateLineRecommendation();
+  saveDraftNow();
+  showToast("おすすめ工場ラインにしました。");
+}
+
 function selectedLineLabels() {
   const map = {
     "line-basic5": "基本5工程",
@@ -218,6 +324,7 @@ function selectedLineLabels() {
 function buildFactoryPrompt() {
   const material = getValue("input-material");
   const destination = getDestinationValue();
+  const shippingTarget = getShippingTargetValue();
   const selected = getSelectedLines();
   const selectedLabels = selectedLineLabels();
 
@@ -233,6 +340,17 @@ function buildFactoryPrompt() {
 
   parts.push("【加工先】");
   parts.push(destinationText(destination));
+  parts.push("");
+
+  parts.push("【出荷先】");
+  parts.push(shippingTargetText(shippingTarget));
+  parts.push("");
+
+  parts.push("【回答方針】");
+  parts.push("一般論や辞書的な説明に広げすぎず、指定された出荷先で使える形を優先してください。");
+  parts.push("ヒデロック本人の今の作業・制作・判断に使える内容にしてください。");
+  parts.push("方法©️名を出す場合も、採用・保留・棚戻しを分けてください。");
+  parts.push(shippingInstruction(shippingTarget));
   parts.push("");
 
   parts.push("【使用する工場ライン】");
@@ -384,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const flowButton = document.getElementById("flow-to-factory-button");
   const copyButton = document.getElementById("copy-button");
   const clearDraftButton = document.getElementById("clear-draft-button");
+  const applyRecommendedLinesButton = document.getElementById("apply-recommended-lines-button");
   const quickButton = document.getElementById("generate-quick-button");
   const fullButton = document.getElementById("generate-full-button");
 
@@ -419,6 +538,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (clearDraftButton) {
     clearDraftButton.addEventListener("click", clearDraft);
+  }
+
+  if (applyRecommendedLinesButton) {
+    applyRecommendedLinesButton.addEventListener("click", applyRecommendedLines);
   }
 
   if (quickButton) {
